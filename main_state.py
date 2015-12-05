@@ -110,6 +110,7 @@ class Life_bar:
     def draw(self):
         self.image_life_bar_out.draw(400,500)
         #self.image_life_bar_in.draw(400,500)
+        #100% 체력바 구현
         self.image_life_bar_in.clip_draw(0, 0, int(240 * (self.life / 100)) , 40, 255 + int  ( 240 * (self.life / 100) / 2), 500)
 
 

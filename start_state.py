@@ -2,7 +2,7 @@ import game_framework
 import title_state
 from pico2d import *
 
-
+#KPU로고
 name = "StartState"
 image = None
 logo_time = 0.0

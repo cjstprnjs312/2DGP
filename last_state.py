@@ -3,7 +3,7 @@ import main_state
 import title_state
 from pico2d import *
 
-
+#결과화면
 name = "LastState"
 image = None
 font = None

@@ -2,7 +2,7 @@ import game_framework
 import main_state
 from pico2d import *
 
-
+#타이틀화면
 name = "TitleState"
 image = None
 
