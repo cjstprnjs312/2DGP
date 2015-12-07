@@ -12,6 +12,8 @@ name = "MainState"
 hero = None
 background = None
 font = None
+block_chk = None
+block_time = 0.0
 
 score = 0
 destroyed_score = 0
@@ -194,24 +196,26 @@ class Block_eff:
     # 현재 6장그림을 다 보여줘야함 그게 안 됨
     # 시간개념? 프레임때문에 그런듯함
 
-    TIME_PER_ACTION = 0.5
-    ACTION_PER_TIME = 1  / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 6
+    TIME_PER_ACTION = 0.1
+    ACTION_PER_TIME = 0.15  / TIME_PER_ACTION
+    FRAMES_PER_ACTION = 1
 
     def __init__(self):
         self.x, self.y = 400, 90
         self.total_frames = 0
-        self.img_block_eff = load_image('resource\\block_eff2.png')
+        self.img_block_eff = load_image('resource\\block_eff_03.png')
         if self.block_eff_sound == None:
             self.block_eff_sound = load_wav('Music\\block_eff.wav')
             self.block_eff_sound.set_volume(90)
 
+    def update(self):
+        self.total_frames += Block_eff.FRAMES_PER_ACTION * Block_eff.ACTION_PER_TIME
+        self.frame = int(self.total_frames) % 15
+
     def draw(self):
         self.block_eff_sound.play(1)
         #애니메이션 구현
-        self.total_frames += Block_eff.FRAMES_PER_ACTION * Block_eff.ACTION_PER_TIME
-        self.frame = int(self.total_frames) % 6
-        self.img_block_eff.clip_draw(self.frame * 150 ,0, 150, 100 , self.x, self.y)
+        self.img_block_eff.clip_draw(self.frame * 100 ,0, 100, 100 , self.x, self.y)
 
 class RightCoin:
 
@@ -280,7 +284,7 @@ def resume():
     pass
 
 def handle_events():
-    global  hero, post_block_y, score, block_eff, destroyed_score
+    global  hero, post_block_y, score, block_eff, destroyed_score, block_chk
 
     events = get_events()
     for event in events:
@@ -292,7 +296,9 @@ def handle_events():
                 #블럭지우기
                 if (BlockList[0].y < 90):
                     BlockList.pop(0)
-                    block_eff.draw()
+                    block_chk = True
+                    #block_eff.draw()
+                   # block_eff.update()
                     update_canvas()
                     score += 1
                     destroyed_score += 1
@@ -306,7 +312,9 @@ def handle_events():
                 #블럭지우기
                 if (BlockList[0].y < 90):
                     BlockList.pop(0)
-                    block_eff.draw()
+                    block_chk = True
+                    #block_eff.draw()
+                    #block_eff.update()
                     update_canvas()
                     score += 1
                     destroyed_score += 1
@@ -328,6 +336,7 @@ def collide(a, b):
 
 def update(frame_time):
     global BlockList, Block_generate_frame, life_bar, gameover, hero, RightCoinList, RightCoin_generate_frame, LeftCoinList, LeftCoin_generate_frame, score
+    global block_time
     #블록들
 
     Block_generate_frame += frame_time
@@ -369,26 +378,31 @@ def update(frame_time):
         rightCoin.update(frame_time)
         if collide(hero, rightCoin):
             score += 100
-            life_bar.life += 10
+            life_bar.life += 5
             RightCoinList.remove(rightCoin)
 
 
     for leftCoin in LeftCoinList:
         leftCoin.update(frame_time)
         if collide(hero, leftCoin):
-            # 먹고 지워야함 현재 충돌체크계속되는중
             score += 100
-            life_bar.life += 10
+            life_bar.life += 5
             LeftCoinList.remove(leftCoin)
 
     hero.update(frame_time)
     life_bar.update(frame_time)
+    block_eff.update()
 
     if len(BlockList) < 14 and Block_generate_frame >= 0.25:
         BlockList.append(Block())
         Block_generate_frame = 0
 
         print(frame_time)
+    block_time += frame_time
+
+
+    if block_chk == True:
+        block_eff.update()
 
     delay(0.06)
 
@@ -409,6 +423,8 @@ def draw():
     for leftCoin in LeftCoinList:
         leftCoin.draw()
 
+    if block_chk == True:
+        block_eff.draw()
     font.draw(750, 500, '%1.f' %  score)
     font.draw(750, 450, '%1.f' % destroyed_score)
     life_bar.draw()
