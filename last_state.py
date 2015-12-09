@@ -1,13 +1,17 @@
 import game_framework
 import main_state
-import title_state
+
 import start_state
 from pico2d import *
 
 #결과화면
 name = "LastState"
+
 image = None
 font = None
+
+# score , destroyed_score 가져오기
+
 
 def enter():
     global image, font
@@ -29,14 +33,26 @@ def handle_events():
             elif(event.type, event.key) == (SDL_KEYDOWN, SDLK_r):
                 game_framework.change_state(main_state)
 
+                main_state.score = 0
+                main_state.destroyed_score = 0
+
+                main_state.BlockList = []
+                main_state.Block_generate_frame = 0
+                main_state.RightCoin_generate_frame = 0
+                main_state.RightCoinList = []
+                main_state.LeftCoin_generate_frame = 0
+                main_state.LeftCoinList = []
+                #game_framework.run(main_state)
+
 def draw():
     global score, destroyed_score
     clear_canvas()
     image.draw(400, 300)
-    font.draw(750, 500, '%1.f' %  score)
-    font.draw(750, 450, '%1.f' % destroyed_score)
+    font.draw(750, 500, '%1.f' % main_state.score)
+    font.draw(750, 450, '%1.f' % main_state.destroyed_score)
     update_canvas()
     print("결과다")
+
 
 def update(frame_time):
     pass

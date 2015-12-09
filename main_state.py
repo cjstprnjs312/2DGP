@@ -364,7 +364,8 @@ def update(frame_time):
             update_canvas()
             delay(1)
             #체인지스테이트로해야하는데 이건 최후의 수단임
-            game_framework.quit()
+            game_framework.push_state(last_state)
+            #game_framework.quit()
             #game_framework.change_state(last_state)
             print('Game Over')
 
