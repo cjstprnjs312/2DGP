@@ -1,3 +1,6 @@
+
+# tutorial_state 만들어야함 이거 그냥 last_state 복붙
+
 import game_framework
 import main_state
 
@@ -72,3 +75,5 @@ def resume():
 
 
 
+
+__author__ = 'Administrator'
