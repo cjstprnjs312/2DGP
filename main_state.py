@@ -119,6 +119,9 @@ class Life_bar:
         self.decreaseLife += (frame_time * 2)
         if(self.decreaseLife > 10):
             self.decreaseLife = 10
+        #스코어가 1000점이 넘으면 초당 25 체력 감소
+        if(score > 1000):
+            self.decreaseLife = 25
 
         if(self.life < 0):
             self.life = 0
@@ -362,8 +365,8 @@ def update(frame_time):
             delay(1)
             #체인지스테이트로해야하는데 이건 최후의 수단임
             game_framework.quit()
-
-           # print('Game Over')
+            #game_framework.change_state(last_state)
+            print('Game Over')
 
     for rightCoin in RightCoinList:
         rightCoin.update(frame_time)
