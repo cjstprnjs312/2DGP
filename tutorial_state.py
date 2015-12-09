@@ -1,16 +1,16 @@
 import game_framework
 import main_state
-import tutorial_state
+import title_state
 from pico2d import *
 
 #타이틀화면
-name = "TitleState"
+name = "TutorialState"
 image = None
 
 
 def enter():
     global image
-    image = load_image('resource\\title.png')
+    image = load_image('resource\\tutuorial.png')
 
 
 def exit():
@@ -28,15 +28,12 @@ def handle_events():
                 game_framework.quit()
             elif(event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
                 game_framework.change_state(main_state)
-            elif(event.type, event.key) == (SDL_KEYDOWN, SDLK_t):
-                game_framework.change_state(tutorial_state)
 
 
 def draw():
     clear_canvas()
     image.draw(400, 300)
     update_canvas()
-
 
 
 def update(frame_time):
@@ -49,9 +46,4 @@ def pause():
 
 def resume():
     pass
-
-
-
-
-
 

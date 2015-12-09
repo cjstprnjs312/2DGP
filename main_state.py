@@ -120,8 +120,9 @@ class Life_bar:
         if(self.decreaseLife > 10):
             self.decreaseLife = 10
         #스코어가 1000점이 넘으면 초당 25 체력 감소
+        # 난이도 설정
         if(score > 1000):
-            self.decreaseLife = 25
+            self.decreaseLife = 20
 
         if(self.life < 0):
             self.life = 0
@@ -300,7 +301,7 @@ def handle_events():
                     score += 1
                     destroyed_score += 1
                     #건물부술시체력회복량
-                    life_bar.life += 3
+                    life_bar.life += 5
                 else:
                     pass
 
@@ -314,7 +315,7 @@ def handle_events():
                     score += 1
                     destroyed_score += 1
                     #건물부술시체력회복량
-                    life_bar.life += 3
+                    life_bar.life += 5
                 else:
                     pass
 
@@ -372,6 +373,7 @@ def update(frame_time):
     for rightCoin in RightCoinList:
         rightCoin.update(frame_time)
         if collide(hero, rightCoin):
+            # 코인획득시 점수
             score += 100
             life_bar.life += 10
             RightCoinList.remove(rightCoin)
@@ -380,7 +382,7 @@ def update(frame_time):
     for leftCoin in LeftCoinList:
         leftCoin.update(frame_time)
         if collide(hero, leftCoin):
-            # 먹고 지워야함 현재 충돌체크계속되는중
+            # 코인획득시 점수
             score += 100
             life_bar.life += 10
             LeftCoinList.remove(leftCoin)

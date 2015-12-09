@@ -30,7 +30,7 @@ def handle_events():
                 game_framework.quit()
             elif(event.type, event.key) == (SDL_KEYDOWN, SDLK_r):
                 game_framework.change_state(main_state)
-
+                #게임 초기화
                 main_state.score = 0
                 main_state.destroyed_score = 0
 
