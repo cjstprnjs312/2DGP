@@ -5,3 +5,17 @@ Traceback (most recent call last):
   File "C:\1003Python\2d term\last_state.py", line 32, in exit
     del(image)
 NameError: name 'image' is not defined
+Traceback (most recent call last):
+  File "mygame.py", line 14, in <module>
+  File "C:\1003Python\2d term\game_framework.py", line 105, in run
+    stack[-1].exit()
+  File "C:\1003Python\2d term\main_state.py", line 289, in exit
+    del(hero)
+NameError: name 'hero' is not defined
+Traceback (most recent call last):
+  File "mygame.py", line 14, in <module>
+  File "C:\1003Python\2d term\game_framework.py", line 105, in run
+    stack[-1].exit()
+  File "C:\1003Python\2d term\main_state.py", line 289, in exit
+    del(hero)
+NameError: name 'hero' is not defined
