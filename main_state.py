@@ -23,6 +23,7 @@ RightCoinList = []
 LeftCoin_generate_frame = 0
 LeftCoinList = []
 
+
 class Hero:
     image = None
 
@@ -262,15 +263,25 @@ class LeftCoin:
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
+class Coin_eff:
+    def __init__(self):
+        # 코인 bgm
+        self.bgm = load_wav('Music\\coin_eff.wav')
+        self.bgm.set_volume(50)
+
+    def coinsound(self):
+        self.bgm.play()
+
 def enter():
-    global hero, background, life_bar, font, gameover, block_eff
+    global hero, background, life_bar, font, gameover, block_eff, coin_eff
 
     background = Background()
     hero = Hero()
     life_bar = Life_bar(score)
     gameover = Gameover()
     block_eff = Block_eff()
-    font = load_font('ENCR10B.TTF')
+    coin_eff = Coin_eff()
+    font = load_font('font\\ENCR10B.TTF')
 
 def exit():
     global hero, blcok, background
@@ -332,7 +343,7 @@ def collide(a, b):
     return True
 
 def update(frame_time):
-    global BlockList, Block_generate_frame, life_bar, gameover, hero, RightCoinList, RightCoin_generate_frame, LeftCoinList, LeftCoin_generate_frame, score
+    global BlockList, Block_generate_frame, life_bar, gameover, hero, RightCoinList, RightCoin_generate_frame, LeftCoinList, LeftCoin_generate_frame, score, coin_eff
     #블록들
 
     Block_generate_frame += frame_time
@@ -365,7 +376,7 @@ def update(frame_time):
             gameover.draw()
             update_canvas()
             delay(1)
-            #체인지스테이트로해야하는데 이건 최후의 수단임
+
             game_framework.push_state(last_state)
             #game_framework.quit()
             #game_framework.change_state(last_state)
@@ -374,6 +385,7 @@ def update(frame_time):
     for rightCoin in RightCoinList:
         rightCoin.update(frame_time)
         if collide(hero, rightCoin):
+            coin_eff.coinsound()
             # 코인획득시 점수
             score += 100
             life_bar.life += 10
@@ -383,6 +395,7 @@ def update(frame_time):
     for leftCoin in LeftCoinList:
         leftCoin.update(frame_time)
         if collide(hero, leftCoin):
+            coin_eff.coinsound()
             # 코인획득시 점수
             score += 100
             life_bar.life += 10

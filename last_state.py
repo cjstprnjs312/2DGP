@@ -25,12 +25,10 @@ def enter():
     global last_scene, font
 
     last_scene = Last_scene()
-    font = load_font('ENCR10B.TTF')
-
+    font = load_font('font\\ENCR10B.TTF')
 
 def exit():
-    global image
-    del(image)
+    pass
 
 def handle_events():
     events = get_events()
@@ -41,7 +39,6 @@ def handle_events():
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
                 game_framework.quit()
             elif(event.type, event.key) == (SDL_KEYDOWN, SDLK_r):
-                game_framework.change_state(main_state)
                 #게임 초기화
                 main_state.score = 0
                 main_state.destroyed_score = 0
@@ -52,6 +49,7 @@ def handle_events():
                 main_state.RightCoinList = []
                 main_state.LeftCoin_generate_frame = 0
                 main_state.LeftCoinList = []
+                game_framework.change_state(main_state)
                 #game_framework.run(main_state)
 
 def draw():
