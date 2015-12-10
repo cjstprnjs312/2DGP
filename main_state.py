@@ -75,7 +75,7 @@ class Background:
         self.image = load_image('resource\\Background.png')
         self.image2 = load_image('resource\\score_back.png')
         self.image3 = load_image('resource\\destroyed_score_back.png')
-        self.bgm = load_music('BackMusic.mp3')
+        self.bgm = load_music('Music\\BackMusic.mp3')
         self.bgm.set_volume(50)
         self.bgm.repeat_play()
 
@@ -123,6 +123,10 @@ class Life_bar:
         # 난이도 설정
         if(score > 1000):
             self.decreaseLife = 20
+        if(score > 2000):
+            self.decreaseLife = 25
+        if(score > 5000):
+            self.decreaseLife = 30
 
         if(self.life < 0):
             self.life = 0
@@ -215,7 +219,7 @@ class Block_eff:
         #애니메이션 구현
         self.total_frames += Block_eff.FRAMES_PER_ACTION * Block_eff.ACTION_PER_TIME
         self.frame = int(self.total_frames) % 15
-        self.img_block_eff.clip_draw(self.frame * 100 ,0, 100, 100 , self.x, self.y)
+        self.img_block_eff.clip_draw(self.frame * 100 +100 ,0, 100, 100 , self.x, self.y)
 
 class RightCoin:
 

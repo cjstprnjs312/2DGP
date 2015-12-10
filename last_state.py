@@ -10,11 +10,23 @@ name = "LastState"
 image = None
 font = None
 
+class Last_scene:
+    def __init__(self):
+        self.image = load_image('resource\\last_state.png')
+        # 결과 bgm
+        self.bgm = load_music('Music\\last_bgm.mp3')
+        self.bgm.set_volume(50)
+        self.bgm.repeat_play()
+
+    def draw(self):
+        self.image.draw(400, 300)
 
 def enter():
-    global image, font
-    image = load_image('resource\\last_state.png')
+    global last_scene, font
+
+    last_scene = Last_scene()
     font = load_font('ENCR10B.TTF')
+
 
 def exit():
     global image
@@ -43,9 +55,10 @@ def handle_events():
                 #game_framework.run(main_state)
 
 def draw():
-    global score, destroyed_score
+    global score, destroyed_score, last_scene
     clear_canvas()
-    image.draw(400, 300)
+
+    last_scene.draw()
     font.draw(450, 350, '%1.f' % main_state.score)
     font.draw(450, 150, '%1.f' % main_state.destroyed_score)
     update_canvas()
