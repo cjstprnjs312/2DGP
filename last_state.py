@@ -59,8 +59,8 @@ def draw():
     clear_canvas()
 
     last_scene.draw()
-    font.draw(450, 350, '%1.f' % main_state.score)
-    font.draw(450, 150, '%1.f' % main_state.destroyed_score)
+    font.draw(450, 150, '%1.f' % main_state.score)
+    font.draw(450, 350, '%1.f' % main_state.destroyed_score)
     update_canvas()
 
 def update(frame_time):

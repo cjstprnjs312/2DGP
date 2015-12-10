@@ -199,17 +199,14 @@ class Block_eff:
     img_block_eff = None
     block_eff_sound = None
 
-    # 현재 6장그림을 다 보여줘야함 그게 안 됨
-    # 시간개념? 프레임때문에 그런듯함
-
     TIME_PER_ACTION = 0.5
     ACTION_PER_TIME = 1  / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 15
+    FRAMES_PER_ACTION = 2
 
     def __init__(self):
         self.x, self.y = 400, 90
         self.total_frames = 0
-        self.img_block_eff = load_image('resource\\block_eff_03.png')
+        self.img_block_eff = load_image('resource\\block_eff_04.png')
         if self.block_eff_sound == None:
             self.block_eff_sound = load_wav('Music\\block_eff.wav')
             self.block_eff_sound.set_volume(90)
@@ -218,8 +215,8 @@ class Block_eff:
         self.block_eff_sound.play(1)
         #애니메이션 구현
         self.total_frames += Block_eff.FRAMES_PER_ACTION * Block_eff.ACTION_PER_TIME
-        self.frame = int(self.total_frames) % 15
-        self.img_block_eff.clip_draw(self.frame * 100 +100 ,0, 100, 100 , self.x, self.y)
+        self.frame = int(self.total_frames) % 9
+        self.img_block_eff.clip_draw(self.frame * 100 ,0, 100, 100 , self.x, self.y)
 
 class RightCoin:
 
